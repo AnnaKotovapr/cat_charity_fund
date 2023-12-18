@@ -5,7 +5,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.crud.base import CRUDBase
 from app.models import Donation, User
-from app.schemas.donation import DonationCreate
 
 
 class CRUDDonation(CRUDBase):

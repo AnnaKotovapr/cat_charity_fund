@@ -36,7 +36,7 @@ def determine_invested_model(
 
 
 async def non_invested_objects(
-    model: Union[CharityProject, Donation], 
+    model: Union[CharityProject, Donation],
     session: AsyncSession
 ) -> List[Union[CharityProject, Donation]]:
 
@@ -49,8 +49,8 @@ async def non_invested_objects(
 
 
 async def process_investments(
-        obj_in: Union[CharityProject, Donation], 
-        not_invested_objects: List[Union[CharityProject, Donation]], 
+        obj_in: Union[CharityProject, Donation],
+        not_invested_objects: List[Union[CharityProject, Donation]],
         session: AsyncSession
 ) -> None:
 

@@ -16,7 +16,8 @@ ERROR_UPDATING_CLOSED_PROJECT = (
 ERROR_PROJECT_WITH_THIS_NAME_EXISTS = (
     'Проект с таким именем уже существует!'
 )
-ERROR_LOW_FULL_AMOUNT = ('Значение требуемой не может быть меньше внесённой'
+ERROR_LOW_FULL_AMOUNT = (
+    'Значение требуемой не может быть меньше внесённой'
 )
 ERROR_PROJECT_NOT_FOUND = 'Проект не найден!'
 
@@ -51,7 +52,7 @@ async def check_charityproject_exists(
 
 
 async def check_project_invested(
-    project_id: int, 
+    project_id: int,
     session: AsyncSession
 ) -> None:
     invested_project = await charityproject_crud.get_project_invested_amount(
