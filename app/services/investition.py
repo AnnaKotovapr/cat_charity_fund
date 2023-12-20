@@ -42,7 +42,7 @@ async def non_invested_objects(
 
     objects = await session.execute(
         select(model).where(
-            model.fully_invested is False).order_by(
+            model.fully_invested is not True).order_by(
                 model.create_date)
     )
     return objects.scalars().all()
