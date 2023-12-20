@@ -41,15 +41,15 @@ async def non_invested_objects(
 ) -> List[Union[CharityProject, Donation]]:
 
     objects = await session.execute(
-        select(model)
-        .where(model.fully_invested == False)
-        .order_by(model.create_date)
+        select(model).where(
+            model.fully_invested == False).order_by(
+                model.create_date)
     )
     return objects.scalars().all()
 
 
 async def process_investments(
-        obj_in: Union[CharityProject, Donation], 
+        obj_in: Union[CharityProject, Donation],
         not_invested_objects: List[Union[CharityProject, Donation]],
         session: AsyncSession
 ) -> None:
