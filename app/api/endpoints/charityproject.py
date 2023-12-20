@@ -82,10 +82,7 @@ async def partially_update_charity_poject(
     return await investing(
         await charityproject_crud.update(
             await check_charityproject_exists(
-        project_id, session
-            ), 
-        obj_in, session), 
-    session)
+                project_id, session), obj_in, session), session)
 
 
 @router.delete(
