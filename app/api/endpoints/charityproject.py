@@ -66,10 +66,11 @@ async def partially_update_charity_poject(
     obj_in: CharityProjectUpdate,
     session: AsyncSession = Depends(get_async_session),
 ):
-    project = await check_charityproject_exists(
+    await check_charityproject_exists(
         project_id, session
     )
     await charity_project_closed(project_id, session)
+
     if obj_in.full_amount is not None:
         await check_updating_full_amount(
             project_id, obj_in.full_amount, session
@@ -77,10 +78,14 @@ async def partially_update_charity_poject(
 
     if obj_in.name is not None:
         await check_name_duplicate(obj_in.name, session)
-    project = await charityproject_crud.update(project, obj_in, session)
-    await investing(project, session)
-    await session.refresh(project)
-    return project
+
+    return await investing(
+        await charityproject_crud.update(
+            await check_charityproject_exists(
+        project_id, session
+            ), 
+        obj_in, session), 
+    session)
 
 
 @router.delete(

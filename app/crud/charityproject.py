@@ -13,11 +13,9 @@ class CRUDCharityProject(CRUDBase):
         name: str,
         session: AsyncSession,
     ) -> Optional[int]:
-        db_project_id = await session.execute(
+        return (await session.execute(
             select(CharityProject.id).where(CharityProject.name == name)
-        )
-        db_project_id = db_project_id.scalars().first()
-        return db_project_id
+        )).scalars().first()
 
     async def get_project_invested_amount(
         self,

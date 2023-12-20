@@ -42,14 +42,14 @@ async def non_invested_objects(
 
     objects = await session.execute(
         select(model)
-        .where(model.fully_invested == False) # noqa
+        .where(model.fully_invested == False)
         .order_by(model.create_date)
     )
     return objects.scalars().all()
 
 
 async def process_investments(
-        obj_in: Union[CharityProject, Donation],
+        obj_in: Union[CharityProject, Donation], 
         not_invested_objects: List[Union[CharityProject, Donation]],
         session: AsyncSession
 ) -> None:
@@ -65,16 +65,16 @@ async def process_investments(
         obj_in.invested_amount += investment
 
         if obj.full_amount == obj.invested_amount:
-            await close_invested_object(obj)
+            close_invested_object(obj)
 
         if not available_amount:
-            await close_invested_object(obj_in)
+            close_invested_object(obj_in)
             break
 
     await session.commit()
 
 
-async def close_invested_object(
+def close_invested_object(
         obj: Union[CharityProject, Donation],
 ) -> None:
 
