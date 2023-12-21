@@ -29,12 +29,12 @@ router = APIRouter()
     response_model=CharityProjectDB,
     response_model_exclude_none=True,
     dependencies=[Depends(current_superuser)],
-)
+) 
+
 async def create_new_charity_project(
     project: CharityProjectCreate,
     session: AsyncSession = Depends(get_async_session),
 ):
-
     await check_name_duplicate(project.name, session)
     project = await charityproject_crud.create(
         project, session
@@ -52,8 +52,7 @@ async def create_new_charity_project(
 async def get_all_charity_projects(
     session: AsyncSession = Depends(get_async_session),
 ):
-    projects = await charityproject_crud.get_multi(session)
-    return projects
+    return await charityproject_crud.get_multi(session)
 
 
 @router.patch(
@@ -94,10 +93,7 @@ async def delete_charity_project(
     project_id: int,
     session: AsyncSession = Depends(get_async_session),
 ):
-    charity_project = await check_charityproject_exists(project_id, session)
     await check_project_invested(project_id, session)
-
-    charity_project = await charityproject_crud.remove(
-        charity_project, session
-    )
-    return charity_project
+    return await charityproject_crud.remove(
+        await check_charityproject_exists(
+            project_id, session), session)

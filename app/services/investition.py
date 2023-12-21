@@ -30,9 +30,8 @@ def determine_invested_model(
     if isinstance(obj, Donation):
         invested_model = CharityProject
         return invested_model
-    else:
-        invested_model = Donation
-        return invested_model
+    invested_model = Donation
+    return invested_model
 
 
 async def non_invested_objects(
