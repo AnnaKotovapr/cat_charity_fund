@@ -29,8 +29,7 @@ router = APIRouter()
     response_model=CharityProjectDB,
     response_model_exclude_none=True,
     dependencies=[Depends(current_superuser)],
-) 
-
+)
 async def create_new_charity_project(
     project: CharityProjectCreate,
     session: AsyncSession = Depends(get_async_session),
